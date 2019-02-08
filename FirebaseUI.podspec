@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
     firestore.platform = :ios, '8.0'
     firestore.public_header_files = 'Firestore/FirebaseFirestoreUI/*.h'
     firestore.source_files = 'Firestore/FirebaseFirestoreUI/*.{h,m}'
-    firestore.dependency 'Firebase/Firestore'
+    firestore.dependency 'FirebaseFirestore'
     firestore.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(PODS_ROOT)/FirebaseUI/FirebaseFirestoreUI' }
   end
 
