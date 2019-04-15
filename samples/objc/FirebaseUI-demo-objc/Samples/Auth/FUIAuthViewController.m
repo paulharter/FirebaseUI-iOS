@@ -43,7 +43,8 @@ NS_ENUM(NSUInteger, FIRProviders) {
   kIDPFacebook,
   kIDPTwitter,
   kIDPPhone,
-  kIDPAnonymous
+  kIDPAnonymous,
+  kIDPMicrosoft
 };
 
 static NSString *const kFirebaseTermsOfService = @"https://firebase.google.com/terms/";
@@ -121,13 +122,10 @@ static NSString *const kFirebasePrivacyPolicy = @"https://firebase.google.com/su
                                                           inSection:kSectionsProviders]
                               animated:NO
                         scrollPosition:UITableViewScrollPositionNone];
-  // Disable twitter provider if token is not set.
-  if (!kTwitterConsumerKey.length || !kTwitterConsumerSecret.length) {
-    NSIndexPath *twitterRow = [NSIndexPath indexPathForRow:kIDPTwitter
-                                                 inSection:kSectionsProviders];
-    [self tableView:self.tableView cellForRowAtIndexPath:twitterRow].userInteractionEnabled = NO;
-    [self.tableView deselectRowAtIndexPath:twitterRow animated:NO];
-  }
+  [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:kIDPMicrosoft
+                                                          inSection:kSectionsProviders]
+                              animated:NO
+                        scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -402,7 +400,26 @@ static NSString *const kFirebasePrivacyPolicy = @"https://firebase.google.com/su
                                      :[[FUIFacebookAuth alloc] init];
           break;
         case kIDPTwitter:
-          provider = [[FUITwitterAuth alloc] init];
+          {
+            UIColor *buttonColor = [UIColor colorWithRed:71.0f/255.0f
+                                                   green:154.0f/255.0f
+                                                    blue:234.0f/255.0f
+                                                   alpha:1.0f];
+            NSString *iconPath =
+                [[NSBundle mainBundle] pathForResource:@"twtrsymbol" ofType:@"png"];
+            if (!iconPath) {
+              NSLog(@"Warning: Unable to find twitter icon.");
+            }
+            provider = [[FUIOAuth alloc] initWithAuthUI:[FUIAuth defaultAuthUI]
+                                             providerID:@"twitter.com"
+                                        buttonLabelText:@"Sign in with Twitter"
+                                              shortName:@"Twitter"
+                                            buttonColor:buttonColor
+                                              iconImage:[UIImage imageWithContentsOfFile:iconPath]
+                                                 scopes:@[@"user.readwrite"]
+                                       customParameters:@{@"prompt" : @"consent"}
+                                           loginHintKey:nil];
+          }
           break;
         case kIDPPhone:
           provider = [[FUIPhoneAuth alloc] initWithAuthUI:[FUIAuth defaultAuthUI]];
@@ -410,7 +427,24 @@ static NSString *const kFirebasePrivacyPolicy = @"https://firebase.google.com/su
         case kIDPAnonymous:
           provider = [[FUIAnonymousAuth alloc] initWithAuthUI:[FUIAuth defaultAuthUI]];
           break;
-
+        case kIDPMicrosoft:
+          {
+            UIColor *buttonColor = [UIColor colorWithRed:.18 green:.18 blue:.18 alpha:1.0];
+            NSString *iconPath = [[NSBundle mainBundle] pathForResource:@"mssymbol" ofType:@"png"];
+            if (!iconPath) {
+              NSLog(@"Warning: Unable to find microsoft icon.");
+            }
+            provider = [[FUIOAuth alloc] initWithAuthUI:[FUIAuth defaultAuthUI]
+                                             providerID:@"microsoft.com"
+                                        buttonLabelText:@"Sign in with Microsoft"
+                                              shortName:@"Microsoft"
+                                            buttonColor:buttonColor
+                                              iconImage:[UIImage imageWithContentsOfFile:iconPath]
+                                                 scopes:@[@"user.readwrite"]
+                                       customParameters:@{@"prompt" : @"consent"}
+                                           loginHintKey:@"login_hint"];
+          }
+          break;
         default:
           break;
       }

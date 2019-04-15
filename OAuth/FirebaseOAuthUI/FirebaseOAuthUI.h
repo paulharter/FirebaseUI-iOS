@@ -1,5 +1,5 @@
 //
-//  Copyright (c) 2016 Google Inc.
+//  Copyright (c) 2019 Google Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -16,8 +16,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FUIAppDelegate : UIResponder <UIApplicationDelegate>
+//! Project version number for FirebaseOAuthUI.
+FOUNDATION_EXPORT double FirebaseOAuthUIVersionNumber;
 
-@property (strong, nonatomic) UIWindow *window;
+//! Project version string for FirebaseOAuthUI.
+FOUNDATION_EXPORT const unsigned char FirebaseOAuthUIVersionString[];
 
-@end
+#import "FUIOAuth.h"
+
+

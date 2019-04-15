@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FirebaseUI'
-  s.version      = '6.0.1'
+  s.version      = '6.2.1'
   s.summary      = 'UI binding libraries for Firebase.'
   s.homepage     = 'https://github.com/firebase/FirebaseUI-iOS'
   s.license      = { :type => 'Apache 2.0', :file => 'LICENSE' }
@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
                                 'Auth/FirebaseAuthUI/FUIAuthTableViewCell.h',
                                 'Auth/FirebaseAuthUI/FUIAuthTableHeaderView.h']
     auth.source_files = ['Auth/FirebaseAuthUI/**/*.{h,m}', 'Auth/FirebaseAuthUI/*.{h,m}']
-    auth.dependency 'Firebase/Auth', '~> 5.0'
+    auth.dependency 'Firebase/Auth', '~> 5.4'
     auth.dependency 'GoogleUtilities/UserDefaults'
     auth.resource_bundle = {
       'FirebaseAuthUI' => ['Auth/FirebaseAuthUI/**/*.{xib,png,lproj}']
@@ -127,6 +127,14 @@ Pod::Spec.new do |s|
     google.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(PODS_ROOT)/FirebaseUI/FirebaseGoogleAuthUI' }
   end
 
+  s.subspec 'OAuth' do |oauth|
+    oauth.platform = :ios, '8.0'
+    oauth.public_header_files = 'OAuth/FirebaseOAuthUI/*.h'
+    oauth.source_files = 'OAuth/FirebaseOAuthUI/*.{h,m}'
+    oauth.dependency 'FirebaseUI/Auth'
+    oauth.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(PODS_ROOT)/FirebaseUI/FirebaseOAuthUI' }
+  end
+
   s.subspec 'Phone' do |phone|
     phone.platform = :ios, '8.0'
     phone.public_header_files = ['PhoneAuth/FirebasePhoneAuthUI/FirebasePhoneAuthUI.h',
@@ -140,15 +148,4 @@ Pod::Spec.new do |s|
     phone.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(PODS_ROOT)/FirebaseUI/FirebasePhoneAuthUI' }
   end
 
-  s.subspec 'Twitter' do |twitter|
-    twitter.public_header_files = 'TwitterAuth/FirebaseTwitterAuthUI/*.h'
-    twitter.source_files = 'TwitterAuth/FirebaseTwitterAuthUI/*.{h,m}'
-    twitter.dependency 'FirebaseUI/Auth'
-    twitter.dependency 'TwitterKit', '~> 3.0'
-    twitter.platform = :ios, '9.0'
-    twitter.resource_bundle = {
-      'FirebaseTwitterAuthUI' => ['TwitterAuth/FirebaseTwitterAuthUI/**/*.{png,lproj}']
-    }
-    twitter.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(PODS_ROOT)/FirebaseUI/FirebaseTwitterAuthUI' }
-  end
 end

@@ -33,9 +33,9 @@ Add the following to your `Podfile`:
 ```ruby
 pod 'FirebaseUI/Auth'
 
+pod 'FirebaseUI/Email'
 pod 'FirebaseUI/Google'
 pod 'FirebaseUI/Facebook'
-pod 'FirebaseUI/Twitter'
 pod 'FirebaseUI/Phone'
 ```
 
@@ -47,7 +47,6 @@ Auth guides at the following links:
 - [Email and password](https://firebase.google.com/docs/auth/ios/password-auth#before_you_begin)
 - [Google](https://firebase.google.com/docs/auth/ios/google-signin#before_you_begin)
 - [Facebook](https://firebase.google.com/docs/auth/ios/facebook-login#before_you_begin)
-- [Twitter](https://firebase.google.com/docs/auth/ios/twitter-login#before_you_begin)
 - [Phone](https://firebase.google.com/docs/auth/ios/phone-auth#before_you_begin)
 
 ## Using FirebaseUI for Authentication
@@ -94,7 +93,6 @@ let providers: [FUIAuthProvider] = [
   FUIEmailAuth(),
   FUIGoogleAuth(),
   FUIFacebookAuth(),
-  FUITwitterAuth(),
   FUIPhoneAuth(authUI: FUIAuth.defaultAuthUI()),
 ]
 self.authUI?.providers = providers
@@ -110,7 +108,6 @@ NSArray<id<FUIAuthProvider>> *providers = @[
   [[FUIEmailAuth alloc] init],
   [[FUIGoogleAuth alloc] init],
   [[FUIFacebookAuth alloc] init],
-  [[FUITwitterAuth alloc] init],
   [[FUIPhoneAuth alloc] initWithAuthUI:[FUIAuth defaultAuthUI]]
 ];
 _authUI.providers = providers;
